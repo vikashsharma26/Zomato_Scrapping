@@ -13,13 +13,11 @@ for i in s:
     details = {}
     helpper = i.find_all('a')
     details['Name'] = helpper[1].find('h4').text
-    if "OFF" in helpper[0].p.text:
-        details['Discount'] = helpper[0].p.text
-    if "min" in helpper[0].p.text:
-        details['Time Of Delivery'] = helpper[0].p.text
-    else:
-        details['Time Of Delivery'] = helpper[0].find_all('p')[1].text
+    if helpper[0].p != None:
+        if "OFF" in helpper[0].p.text:
+           details['Discount'] = helpper[0].p.text
     details['Rating'] = helpper[1].div.div.div.div.div.div.div.text
     details['Link'] = "https://www.zomato.com"+helpper[0]["href"]
     complete_detail.append(details)
-print(complete_detail)
+new = open("Data.json","w")
+json.dump(complete_detail,new,indent=4)
